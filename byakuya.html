@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>白夜 | TRPGシナリオテザー</title>
+  <style>
+    body {
+      color: #222;
+      font-family: 'Yu Mincho', 'Hiragino Mincho ProN', serif;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      position: relative;
+
+      /* 空背景＋右下ヘリオドール */
+      background-image: 
+        url('heliodor.png'),
+        url('sky.png');
+      background-repeat: no-repeat, no-repeat;
+      background-position: right bottom, center center;
+      background-size: 50% auto, cover; /* ヘリオドール大きめ1/4見切れ */
+      background-attachment: fixed, fixed;
+    }
+
+    /* 空画像を暗くするオーバーレイ */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4); /* 明度40%カット */
+      z-index: -1;
+    }
+
+    h1 {
+      font-size: 3em;
+      text-align: center;
+      margin-bottom: 0.2em;
+      color: #bfa200; /* タイトルは黄金色で残す */
+    }
+
+    .catch {
+      text-align: center;
+      font-size: 1.2em;
+      color: #fff; /* 白字で埋もれ防止 */
+    }
+
+    h2 {
+      font-size: 1.5em;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.2em;
+      margin-top: 2em;
+    }
+
+    p {
+      margin: 1em 0;
+    }
+
+    .one-night {
+      font-weight: bold;
+    }
+
+    .quote {
+      color: #888;
+      text-align: center;
+      margin: 2em 0;
+      font-style: normal; /* イタリック解除 */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0;
+      background-color: rgba(255,255,255,0.8);
+    }
+
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    ul {
+      list-style: none; /* デフォルトの・を消す */
+      margin-left: 1.2em;
+      background-color: rgba(255,255,255,0.8);
+      padding: 1em;
+    }
+
+    ul li::before {
+      content: "✦";
+      color: #bfa200;
+      margin-right: 0.5em;
+    }
+
+    footer {
+      margin-top: 3em;
+      text-align: right;
+      font-size: 0.9em;
+      color: #666;
+      background-color: rgba(255,255,255,0.8);
+      padding: 0.5em;
+    }
+
+    .section {
+      background-color: rgba(255,255,255,0.75); /* 少し透かして星空を見せる */
+      padding: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>白夜</h1>
+  <div class="catch"> 彼女が、再び世に解き放たれた。</div>
+
+  <div class="section">
+    <h2>概要</h2>
+    <p>
+      三度目の白い封筒。<br>
+      聖石探索の命がくだる。
+    </p>
+    <p class="one-night">――これは巡らない一夜の物語。</p>
+    <p class="quote">『待っていてくれるか』</p>
+  </div>
+
+  <div class="section">
+    <h2>シナリオ概要</h2>
+    <table>
+      <tr><th>プレイ時間</th><td>テキストオンリー 全日で2～3回程度（土曜日定期のつもり）</td></tr>
+      <tr><th>人数</th><td>タイマン</td></tr>
+      <tr><th>使用システム</th><td>デカダンスRPG</td></tr>
+      <tr><th>スタイル</th><td>小規模シティ</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>ハウスルール</h2>
+    <ul>
+      <li>敵の攻撃に対して『回避判定』が振れる<br>
+          回避判定：機敏-20 または 器用-40
+      </li>
+      <li>クライマックスシーンは痛打・気絶・発狂無効</li>
+    </ul>
+  </div>
+
+  <footer>
+    作成者：もえかす
+  </footer>
+</body>
+</html>
