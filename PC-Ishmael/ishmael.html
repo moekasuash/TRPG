@@ -492,14 +492,17 @@ html, body {
     text-align: center;
   }
 
-  /* キャラ画像は画面幅いっぱい */
+  /* キャラ画像 */
   .hero img {
-    max-width: 90%;
+    width: 100%;
     height: auto;
+    max-width: none; /* スマホでは画面いっぱいに */
+    object-fit: cover;
+    object-position: center top; /* 画像の中央を見せる */
     margin-bottom: 1rem;
   }
 
-  /* テキストエリアを中央寄せ */
+  /* テキストエリア */
   .hero-text {
     padding: 0;
     margin: 0 auto;
@@ -508,17 +511,25 @@ html, body {
   }
 
   .hero-text h1 {
-    font-size: 2.5em;
+    font-size: 2.2em;
     margin-bottom: 0.3em;
   }
 
   .hero-text h2 {
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-bottom: 0.5em;
   }
 
   .hero-text p {
     font-size: 1em;
+  }
+
+  /* 背景アイコンの調整（例: 左上固定） */
+  .background-image {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 5%;
+    width: 150%;
   }
 }
 
