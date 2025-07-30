@@ -485,36 +485,43 @@ html, body {
 }
 
 @media (max-width: 768px) {
-  /* hero部分の全体調整 */
+  /* hero全体を縦並びに */
   .hero {
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
   }
 
+  /* キャラ画像は画面幅いっぱい */
   .hero img {
-    max-width: 60%;  /* 画像は幅の6割 */
+    max-width: 90%;
     height: auto;
-    object-fit: contain;
+    margin-bottom: 1rem;
   }
 
+  /* テキストエリアを中央寄せ */
   .hero-text {
-    padding-left: 5%;
-    margin-left: 0;
-    max-width: 40%;  /* テキストは幅の4割 */
+    padding: 0;
+    margin: 0 auto;
+    max-width: 90%;
+    text-align: center;
   }
 
   .hero-text h1 {
-    font-size: 2em;  /* 過剰な大きさを抑える */
+    font-size: 2.5em;
+    margin-bottom: 0.3em;
   }
 
   .hero-text h2 {
-    font-size: 1em;
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
   }
 
   .hero-text p {
-    font-size: 0.9em;
+    font-size: 1em;
   }
 }
+
 
   
 </style>
