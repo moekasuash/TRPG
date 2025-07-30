@@ -485,6 +485,13 @@ html, body {
 }
 
 @media (max-width: 768px) {
+
+    body {
+    background-attachment: scroll !important;
+    background-position: center top !important;
+    background-size: cover !important;
+  }
+  
   /* hero全体を縦並びに */
   .hero {
     flex-direction: column;
@@ -524,18 +531,16 @@ html, body {
     font-size: 1em;
   }
 
-  /* 背景アイコンの調整（例: 左上固定） */
-  .background-image {
-    right: 50%;
-    transform: translateX(-50%);
-    top: 5%;
-    width: 200%;
-  }
-    body {
-    background-attachment: scroll !important;
-    background-position: center top !important;
-    background-size: cover !important;
-  }
+  .wrath-icon {
+  position: fixed;
+  top: -10%;
+  right: 30%;
+  width: 100%;
+  height: auto;
+  opacity: 0.5;
+  z-index: 1; /* 背景より前、キャラより後ろ */
+  pointer-events: none;
+}
 }
 
 
