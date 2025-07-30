@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>イシュマエル キャラシート</title>
+<style>
+body {
+  margin: 0;
+  font-family: "Yu Mincho", serif;
+  color: #222;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+/* --- ヒーロー画像 --- */
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+.hero img {
+  position: fixed;
+  top: -100px;
+  right: -5%;
+  width: 70%;
+  height: auto;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  transform: translate(0, 0);
+}
+.hero-text {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 15%;
+  color: #ffffff;
+  text-align: left;
+  margin-left: 5%;
+  max-width: 600px;
+}
+
+/* 名前（日本語） */
+.hero-text h1 {
+  font-size: 4.5em;              /* 大きくする */
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0.2em 0;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+}
+
+/* 英字名 */
+.hero-text h2 {
+  font-size: 2em;
+  font-weight: normal;
+  color: #cccccc;                /* グレーがかった色 */
+  margin: 0.2em 0;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}
+
+/* セリフ */
+.hero-text p {
+  font-size: 1.4em;
+  font-style: italic;            /* 斜体 */
+  color: #e0e0e0;
+  margin: 0.5em 0 0 0;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.hero-text h1,
+.hero-text h2,
+.hero-text p {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSlideIn 0.8s ease forwards;
+}
+
+/* 表示順 */
+.hero-text h1 { animation-delay: 0.2s; }
+.hero-text h2 { animation-delay: 0.5s; }
+.hero-text p  { animation-delay: 0.8s; }
+
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* --- 上に戻るボタン --- */
+#backToTop {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
+  background-color: rgba(50, 50, 50, 0.7);
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+#backToTop:hover {
+  background-color: rgba(20, 20, 20, 0.9);
+}
+
+/* 左上のポータルボタン */
+.portal-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background-color: rgba(50, 50, 50, 0.7);
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+.portal-button:hover {
+  background-color: rgba(20, 20, 20, 0.9);
+}
+
+
+/* --- タブセクション --- */
+.tab-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.7);
+  border-radius: 8px;
+  position: relative;
+  z-index: 5;
+}
+.tab-nav {
+  display: flex;
+  border-bottom: 2px solid #333;
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.95);
+  z-index: 1000;
+  border-radius: 8px 8px 0 0;
+}
+.tab-nav button {
+  flex: 1;
+  padding: 10px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  border-right: 1px solid #333;
+  font-size: 1rem;
+}
+.tab-nav button:last-child { border-right: none; }
+.tab-nav button.active { background: rgba(200,200,200,0.4); }
+.tab-content {
+  padding: 20px;
+  min-height: 500px;
+  position: relative;
+  z-index: 10;
+  background: rgba(255,255,255,0.6);
+  border-radius: 0 0 6px 6px;
+}
+
+/* --- 見出し --- */
+.tab-content h3 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 20px 0 15px 0;
+}
+
+/* --- グリッド型基本情報 --- */
+.info-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px 20px;
+}
+.info-item {
+  background: rgba(255,255,255,0.6);
+  border: 1px solid #666;
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+.info-item strong {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+/* --- 能力値カード --- */
+.stats-grid {
+  max-width: 900px;
+  margin: 30px auto 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px 20px;
+}
+.stat-card {
+  background: rgba(255,255,255,0.8);
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 10px;
+  position: relative;
+}
+.stat-card h4 { margin: 0; font-size: 1.2rem; }
+.stat-values { margin-top: 5px; font-size: 1rem; }
+.stat-values .final { font-weight: bold; font-size: 1.3rem; }
+.bonus-tag {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 0.8rem;
+  color: #444;
+  background: rgba(200,200,200,0.4);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* --- 合計値 --- */
+.total-stat {
+  max-width: 900px;
+  margin: 25px auto;
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 14px 10px;
+  border-radius: 10px;
+  border: 2px solid #999;
+  background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(200,200,200,0.5));
+  box-shadow: 0 0 10px rgba(160,160,160,0.3);
+}
+
+/* 履歴・装備リストなど */
+details {
+  border: 1px solid #999;
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 10px;
+  background: rgba(255,255,255,0.6);
+}
+summary { cursor: pointer; font-weight: bold; font-size: 1.1em; }
+.log-detail { margin-top: 8px; padding-left: 10px; }
+
+.equipment-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.equipment-item {
+  background: rgba(255,255,255,0.8);
+  border: 1px solid #555;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+.equipment-header {
+  padding: 12px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.equipment-header:hover {
+  background: rgba(0,0,0,0.05);
+}
+.equipment-content {
+  display: none;
+  padding: 15px;
+  border-top: 1px solid #555;
+}
+.character-content {
+  padding: 15px;
+  border-top: 1px solid #555;
+  background: rgba(255,255,255,0.8);
+  border-radius: 8px;
+}
+.equipment-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 12px;
+}
+.equipment-content td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #aaa;
+  font-size: 1rem;
+}
+.equipment-content td:nth-child(odd) {
+  font-weight: bold;
+  width: 25%;
+}
+.equipment-content p {
+  margin: 0;
+  padding: 10px;
+  background: rgba(240,240,240,0.7);
+  border-radius: 5px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.note { color: blue; cursor: pointer; text-decoration: underline; }
+.note-text { background: rgba(240,240,240,0.8); padding: 8px; border-radius: 5px; margin-top: 8px; }
+
+/* --- 卓履歴カード --- */
+.log-card {
+  border: 1px solid #999;
+  border-radius: 8px;
+  margin: 15px auto;
+  max-width: 700px;
+  background: rgba(255,255,255,0.8);
+  overflow: hidden;
+}
+.log-header {
+  font-weight: bold;
+  padding: 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  background: rgba(240,240,240,0.9);
+}
+.log-body { display: none; padding: 12px; }
+.log-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.log-tag {
+  display: inline-block;
+  background: #eee;
+  border: 1px solid #666;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+.log-entry {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 6px;
+  margin-right: 15px;
+  white-space: nowrap;
+}
+.log-comment {
+  background: rgba(240,240,240,0.8);
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 0.95rem;
+}
+.highlight-gold .log-header { background: linear-gradient(to bottom, #f7f3df, #f7f3df); }
+.highlight-npc .log-header { background: linear-gradient(to bottom, #ffffff, #ffffff); }
+
+
+
+body, .hero, .tab-container {
+  position: relative;
+  z-index: 5;
+}
+
+/* 背景画像 */
+.background-image {
+  position: fixed;
+  top: 30;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: url('back.png') center center / cover no-repeat;
+  z-index: 0;
+}
+
+/* 火の粉動画 */
+
+
+/* コンテンツ全体は動画より前 */
+body, .hero, .tab-container {
+  position: relative;
+  z-index: 5;
+}
+
+/* 従者・保管テーブル */
+.storage-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.storage-table th, .storage-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+    font-size: 15px;
+}
+
+.storage-table th {
+    background: rgba(0,0,0,0.1);
+    font-weight: bold;
+}
+
+/* セクション全体 */
+.storage-section {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.styled-table {
+  width: 100%;
+  max-width: 700px;
+  table-layout: fixed;       /* 列幅を固定 */
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-size: 14px;
+  text-align: center;
+  background: rgba(255,255,255,0.8);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 4px 6px;
+  line-height: 1.3;
+  white-space: normal;       /* 折り返し許可 */
+  vertical-align: middle;
+}
+
+.styled-table thead th:nth-child(1) {
+  width: 35%;                /* 名称列を広めに */
+}
+.styled-table thead th:nth-child(2),
+.styled-table thead th:nth-child(3),
+.styled-table thead th:nth-child(4),
+.styled-table thead th:nth-child(5) {
+  width: 12%;                /* 数字系の列を細く */
+}
+
+/* 保管品リスト専用 */
+.styled-table.wide {
+  table-layout: auto;    /* 列幅を内容に応じる */
+}
+
+.styled-table.wide th:nth-child(1) { width: 25%; }  /* 名称 */
+.styled-table.wide th:nth-child(2) { width: 10%; }  /* 価値 */
+.styled-table.wide th:nth-child(3) { width: 15%; }  /* 重さ */
+.styled-table.wide th:nth-child(4) { width: 50%; }  /* 備考（広め） */
+
+.note-box {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #333;
+  background: rgba(255,255,255,0.6);
+  padding: 6px 8px;
+  border-radius: 4px;
+  line-height: 1.4;
+}
+
+/* 背景とキャラの間に置くsin_wrathアイコン */
+.wrath-icon {
+  position: fixed;
+  top: -10%;
+  left: 0;
+  width: 70%;
+  height: auto;
+  opacity: 0.5;
+  z-index: 1; /* 背景より前、キャラより後ろ */
+  pointer-events: none;
+}
+
+html, body {
+  background-color: #272727; /* 背景色を黒に */
+}
+
+</style>
+</head>
+<body>
+<div class="background-image"></div>
+<a href="https://moekasuash.github.io/TRPG/" class="portal-button">ポータルへ戻る</a>
+<img src="sin_wrath.png" alt="Wrath Icon" class="wrath-icon">
+
+
+<div class="hero">
+<img alt="イシュマエル立ち絵" src="ishmael.png"/>
+<div class="hero-text">
+<h1>イシュマエル</h1>
+<h2>Ishmael Vickers</h2>
+<p>「振りかかる火の粉は、この手で払うまでだ」</p>
+</div>
+</div>
+<button id="backToTop" title="ページ上部へ">▲</button>
+<div class="tab-container">
+<div class="tab-nav">
+<button class="active" onclick="showTab('info', this)">基本情報</button>
+<button onclick="showTab('items', this)">持ち物・設定</button>
+<button onclick="showTab('history', this)">卓履歴</button>
+</div>
+<div class="tab-content" id="info">
+<h3>基本情報</h3>
+<div class="info-grid">
+<div class="info-item"><strong>名前</strong>イシュマエル・ヴィッカーズ</div>
+<div class="info-item"><strong>年齢・性別・身長</strong>25歳／男／185cm（+ヒール5cm）</div>
+<div class="info-item"><strong>レベル</strong>聖槍11 / 磔刑6</div>
+<div class="info-item"><strong>原罪</strong>憤怒</div>
+<div class="info-item"><strong>階級</strong>聖職者階級（学歴：大学）<br/>特権：聖職権</div>
+<div class="info-item"><strong>境遇</strong>【使徒】魔女として通報された際の幸運判定 +20</div>
+<div class="info-item"><strong>自宅規模</strong>門構えの豪邸<br/>保管4／快適5／女中2／警備3</div>
+<div class="info-item"><strong>性格</strong>長所／冷静<br/>短所／人が苦手</div>
+<div class="info-item"><strong>魅力</strong>堂々とした態度／アルビノ／純白の美肌／映える武装／突き刺さる瞳／威厳の美声／美麗な髪の毛</div>
+<div class="info-item"><strong>喪失</strong>故郷</div>
+<div class="info-item"><strong>性癖</strong>勝利／援助／研究／賭博／文学／束縛／戦闘</div>
+<div class="info-item"><strong>経験点</strong>72</div>
+</div>
+<h3>能力値</h3>
+<div class="stats-grid">
+<div class="stat-card"><h4>器用</h4>
+<div class="stat-values"><span>45</span>＋<span>05</span>＝<span class="final">50</span></div>
+</div>
+<div class="stat-card"><h4>機敏</h4>
+<div class="stat-values"><span>65</span>＋<span>30</span>＝<span class="final">95</span></div>
+</div>
+<div class="stat-card"><h4>知恵</h4>
+<div class="bonus-tag">知識点7</div>
+<div class="stat-values"><span>50</span>＋<span>20</span>＝<span class="final">70</span></div>
+</div>
+<div class="stat-card"><h4>体格</h4>
+<div class="bonus-tag">耐久点9</div>
+<div class="stat-values"><span>60</span>＋<span>39</span>＝<span class="final">99</span></div>
+</div>
+<div class="stat-card"><h4>意志</h4>
+<div class="bonus-tag">正気点8</div>
+<div class="stat-values"><span>50</span>＋<span>30</span>＝<span class="final">80</span></div>
+</div>
+<div class="stat-card"><h4>幸運</h4>
+<div class="bonus-tag">幸運点4</div>
+<div class="stat-values"><span>30</span>＋<span>16</span>＝<span class="final">46</span></div>
+</div>
+<div class="stat-card"><h4>財力</h4>
+<div class="bonus-tag">財産点8</div>
+<div class="stat-values"><span>40</span>＋<span>0</span>＝<span class="final">40</span></div>
+</div>
+<div class="stat-card"><h4>身分</h4>
+<div class="bonus-tag">権力Lv4</div>
+<div class="stat-values"><span>60</span>＋<span>0</span>＝<span class="final">60</span></div>
+</div>
+</div>
+<div class="total-stat">合計：542 / 600</div>
+</div>
+<div class="tab-content" id="items" style="display:none">
+ <h3>
+  装備
+ </h3>
+ <div class="equipment-list">
+  <div class="equipment-item">
+   <div class="equipment-header" onclick="toggleEquipment(this)">
+    武器：格闘
+    <span>
+     ＋
+    </span>
+   </div>
+   <div class="equipment-content">
+    <table>
+     <tr>
+      <td>
+       重量
+      </td>
+      <td>
+       なし
+      </td>
+     </tr>
+     <tr>
+      <td>
+       装備箇所
+      </td>
+      <td>
+       両手
+      </td>
+     </tr>
+     <tr>
+      <td>
+       射程
+      </td>
+      <td>
+       0～1PT
+      </td>
+     </tr>
+     <tr>
+      <td>
+       攻撃力
+      </td>
+      <td>
+       3（体格99）
+      </td>
+     </tr>
+    </table>
+    <p>
+     攻撃力は「体格 ÷ 30」となる。
+     <br/>
+     「急所狙い」「腕狙い」「足狙い」「気絶狙い」を行った場合、命中判定に＋5のボーナス。
+    </p>
+   </div>
+  </div>
+  <div class="equipment-item">
+   <div class="equipment-header" onclick="toggleEquipment(this)">
+    防具：カソック
+    <span>
+     ＋
+    </span>
+   </div>
+   <div class="equipment-content">
+    <table>
+     <tr>
+      <td>
+       種別
+      </td>
+      <td>
+       非金属鎧
+      </td>
+     </tr>
+     <tr>
+      <td>
+       重量
+      </td>
+      <td>
+       0
+      </td>
+     </tr>
+     <tr>
+      <td>
+       防御力
+      </td>
+      <td>
+       0
+      </td>
+     </tr>
+    </table>
+    <p>
+     聖職者の装束。
+    </p>
+   </div>
+  </div>
+ </div>
+
+<h3>
+  所持品
+ </h3>
+ <div class="equipment-list">
+  <div class="equipment-item">
+   <div class="equipment-header" onclick="toggleEquipment(this)">
+    フリントロック拳銃
+    <span>
+     ＋
+    </span>
+   </div>
+   <div class="equipment-content">
+    <table>
+     <tr>
+      <td>
+       種別
+      </td>
+      <td>
+       武器（片手）
+      </td>
+     </tr>
+     <tr>
+      <td>
+       価値
+      </td>
+      <td>
+       4
+      </td>
+     </tr>
+     <tr>
+      <td>
+       重量
+      </td>
+      <td>
+       10
+      </td>
+     </tr>
+    </table>
+    <p>
+     インナーのベルトに提げる。自分が使うというよりは、緊急時同居人に渡す為に持っている。
+    </p>
+   </div>
+  </div>
+  <div class="equipment-item">
+   <div class="equipment-header" onclick="toggleEquipment(this)">
+    魔法の万年筆
+    <span>
+     ＋
+    </span>
+   </div>
+   <div class="equipment-content">
+    <table>
+     <tr>
+      <td>
+       種別
+      </td>
+      <td>
+       非消耗品
+      </td>
+     </tr>
+     <tr>
+      <td>
+       価値
+      </td>
+      <td>
+       非売
+      </td>
+     </tr>
+     <tr>
+      <td>
+       重量
+      </td>
+      <td>
+       1
+      </td>
+     </tr>
+    </table>
+    <p>
+     見た目は普通の万年筆だが、魔女が念じることで『魔女の箒』と同等の効果を発揮する。
+         インクが切れないという地味に便利な効果つき。（作成者：冬弥さん）
+    </p>
+   </div>
+  </div>
+  <div class="equipment-item">
+   <div class="equipment-header" onclick="toggleEquipment(this)">
+    カヴェルシンボル
+    <span>
+     ＋
+    </span>
+   </div>
+   <div class="equipment-content">
+    <table>
+     <tr>
+      <td>
+       種別
+      </td>
+      <td>
+       非消耗品
+      </td>
+     </tr>
+     <tr>
+      <td>
+       価値
+      </td>
+      <td>
+       2
+      </td>
+     </tr>
+     <tr>
+      <td>
+       重量
+      </td>
+      <td>
+       1
+      </td>
+     </tr>
+    </table>
+    <p>
+     特になし。
+    </p>
+   </div>
+  </div>
+  <div class="equipment-item">
+   <div class="equipment-header" onclick="toggleEquipment(this)">
+    懐中時計
+    <span>
+     ＋
+    </span>
+   </div>
+   <div class="equipment-content">
+    <table>
+     <tr>
+      <td>
+       種別
+      </td>
+      <td>
+       非消耗品
+      </td>
+     </tr>
+     <tr>
+      <td>
+       価値
+      </td>
+      <td>
+       ？
+      </td>
+     </tr>
+     <tr>
+      <td>
+       重量
+      </td>
+      <td>
+       1
+      </td>
+     </tr>
+    </table>
+    <p>
+     誕生日プレゼントで貰った懐中時計。だいたい懐に入れている。
+    </p>
+   </div>
+ </div>
+  </div>
+  <div class="total-stat">
+   総合重量：13 / 99
+  </div>
+ <h3>
+  自宅保管
+ </h3>
+ <div class="equipment-list">
+  <div class="equipment-item">
+   <div class="equipment-header" onclick="toggleEquipment(this)">
+    従者一覧
+    <span>
+     ＋
+    </span>
+   </div>
+   <div class="equipment-content">
+    <table class="styled-table">
+     <thead>
+      <tr>
+       <th>
+        名称
+       </th>
+       <th>
+        価値
+       </th>
+       <th>
+        耐
+       </th>
+       <th>
+        防
+       </th>
+       <th>
+        正
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+        女中
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        女中
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        2
+       </td>
+      </tr>
+      <tr>
+       <td>
+        警備員
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        4
+       </td>
+      </tr>
+      <tr>
+       <td>
+        警備員
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        4
+       </td>
+      </tr>
+      <tr>
+       <td>
+        警備員
+       </td>
+       <td>
+        1※
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        3
+       </td>
+       <td>
+        4
+       </td>
+      </tr>
+      <tr>
+       <td>
+        秘書
+       </td>
+       <td>
+        2※
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        0
+       </td>
+       <td>
+        3
+       </td>
+      </tr>
+      <tr>
+       <td>
+        ベルノルト＊
+       </td>
+       <td>
+        1※
+       </td>
+       <td colspan="3">
+        (同居PC: 紫咲さん、価値は「女中」準拠)
+       </td>
+      </tr>
+      <tr>
+       <td>
+        スヴェン＊
+       </td>
+       <td>
+        1※
+       </td>
+       <td colspan="3">
+        (同居PC: 冬弥さん、価値は「女中」準拠)
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    <div class="note-box">
+     <p>
+      ＊「ベルノルト」は同居PC（紫咲さん）、「スヴェン」は冬弥さんのPC。価値は「女中」準拠。
+     </p>
+     <p>
+      ※「従者の部屋」の効果で従者4名の価値－1
+     </p>
+    </div>
+   </div>
+  </div>
+ </div>
+
+<div class="equipment-list">
+  <div class="equipment-item">
+   <div class="equipment-header" onclick="toggleEquipment(this)">
+    保管品リスト
+    <span>
+     ＋
+    </span>
+   </div>
+   <div class="equipment-content">
+    <table class="styled-table wide">
+     <thead>
+      <tr>
+       <th>
+        名称
+       </th>
+       <th>
+        価値
+       </th>
+       <th>
+        重さ
+       </th>
+       <th>
+        備考
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <td>
+        解毒薬
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        5
+       </td>
+       <td>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        解毒薬
+       </td>
+       <td>
+        4
+       </td>
+       <td>
+        5
+       </td>
+       <td>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        治療薬
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        5
+       </td>
+       <td>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        従者の部屋
+       </td>
+       <td>
+        2
+       </td>
+       <td>
+        運搬不可
+       </td>
+       <td>
+        待機させている従者の価値を-1軽減（家の「保管」と同値まで）
+       </td>
+      </tr>
+      <tr>
+       <td>
+        秘密の自室
+       </td>
+       <td>
+        5
+       </td>
+       <td>
+        運搬不可
+       </td>
+       <td>
+        -20ペナルティで捜索判定に成功しないと見つからない。価値+1でプレイルーム機能つき
+       </td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
+ </div>
+
+ <div class="total-stat">
+  総合保管：24 / 32
+ </div>
+
+ <h3>
+  キャラクター設定
+ </h3>
+ <div class="equipment-list">
+  <div class="equipment-item">
+   <div class="character-content" style="display:block;">
+    <p>
+     首都から遠く離れた寒村の教会に住み込んでいる聖職者。
+     <br/>
+     中短髪で切り揃えられた白い髪、白い肌に赤い瞳を持つアルビノ。
+     <br/>
+     項に烙印を持ち、後頭部・首・背中・肩に向かって広がる。一応カソック・襟足・マフラーで隠せているものの、近頃は保険として包帯を首に巻いている。
+     <br/>
+     少年期にひん曲がったことでわりと人間的にだめだったが、色々あって性格が若干（ものすごく）丸まった。
+     <br/>
+     良くも悪くも直進行軍。まっすぐ行ってぶっとばす。そのわりに変なところでうじうじしてることもあるので、故障かな？と思ったら４５度くらい角度つけて頬を張っ倒してください。
+     <br/>
+     世話焼いて守り通すことが好意の発露だと思ってる節が結構ある。ありていに言うとバブみ。他人にオギャられるのは好ましいこととして受け取る反面、自分がオギャることには抵抗がなくもない。
+     <br/>
+     無駄に威圧的な言動は身に染み付いた癖のようなもの。不機嫌そうな真顔をしていることが多く寄りつき難い。最近はこれでもかなり表情豊かになったほう。
+     <br/>
+     紆余曲折を経て友人２人を教会においている。性格が丸くなったのはだいたいこの２人のおかげ。
+    </p>
+   </div>
+  </div>
+ </div>
+
+ <details style="max-width:800px; margin:20px auto;">
+  <summary style="cursor:pointer; font-weight:bold;">
+   PC稼働していた頃の旧説明
+  </summary>
+  <div style="margin-top:10px; background:rgba(255,255,255,0.8); padding:10px; border-radius:5px; font-size:0.9rem;">
+   <!-- ここに旧説明文を記入 -->
+   首都から遠く離れた寒村の教会に住み込んでいる聖職者。白い肌に淀んだ赤色の瞳、白い長髪。
+   <br/>
+   幼くして教会に預けられ、幼少期からずっと教会関連のドロドロした内情とアルビノに対する差別に晒されて生きてきた。そんなわけで人格にかなり問題がある。
+   <br/>
+   少年期にひん曲がったことでわりと人間的にだめだったが、魔女になってからある程度他人と交流を持ち、色々あって性格が若干（ものすごく）丸まった。コミュニケーションだいじ。
+   <br/>
+   なんやかんやあって、現在は前述の新米魔女を自身の客分として教会に引き取っている。
+   <br/>
+   更になんやかんやあって、もう一人友達が教会に住み着いた。なんだこれは。
+   <br/>
+  </div>
+</details>
+
+
+</div>
+<div class="tab-content" id="history" style="display:none">
+<h3>シナリオ履歴</h3>
+<div class="log-card highlight-gold">
+<div class="log-header" onclick="toggleLog(this)">琥珀（2016/06/01）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・アダルベルト</div>
+<div class="log-entry"><span class="log-tag">GM</span> むらさん</div>
+<div class="log-entry"><span class="log-tag">ED</span> NORMAL 1 - 《戯言スピーカー》</div></div>
+<div class="log-comment">解決した……？いやしてない。危うい日常が戻ってきた。<br/>
+どうなるかは神のみぞ知るって感じ</div>
+</div>
+</div>
+<div class="log-card highlight-gold">
+<div class="log-header" onclick="toggleLog(this)">金の楽譜（2016/02/21）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・アダルベルト</div>
+<div class="log-entry"><span class="log-tag">GM</span> むらさん</div>
+<div class="log-entry"><span class="log-tag">ED</span> ED　OPEN　B - 《変わらぬ日常》</div></div>
+<div class="log-comment">ﾝﾝﾝﾝﾝ夢オチィィィィーーーーーーーー<br/>
+今は平和！今は平和！！！！！</div>
+</div>
+</div>
+<div class="log-card highlight-npc">
+<div class="log-header" onclick="toggleLog(this)">Hopes Bright（2015/12/12） - NPC登場（PC卒業シナリオ）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">PC</span> スヴェン・アダルベルト、ベルノルト・アインハルト</div>
+<div class="log-entry"><span class="log-tag">GM</span> 比企</div>
+<div class="log-entry"><span class="log-tag">ED</span> ED2 EX - "φιλανθρωπία"</div></div>
+<div class="log-comment">想定してたどのエンドよりもいい感じで終わりました。（２回目）<br/>
+なんかもうやりたいこと全部やった。（２回目）<br/>
+お前はいい友達を持ったなあ……初稼働のときこんなことになるなんて思ってもみなかったぞ……。</div>
+</div>
+</div>
+<div class="log-card">
+<div class="log-header" onclick="toggleLog(this)">夢浮橋（2015/12/02）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> ベルノルト・アインハルト、フィラ・リシャーニー</div>
+<div class="log-entry"><span class="log-tag">GM</span> 冬弥</div>
+<div class="log-entry"><span class="log-tag">ED</span> END-EX『LOOK AROUND』</div></div>
+<div class="log-comment">ス君をｶﾞｯてしてﾊﾞｰｯてしてﾜｰｯてした！！！！！！！！<br/>
+ﾊｱｰｯてなったしｱｱｰｯてなったしほんとｳｵｱｰ　人は萌えすぎると言語野が破壊される<br/>
+魔女バレして逃げ出したス君を捕獲して家に拉致りました。友人コレクターか</div>
+</div>
+</div>
+<div class="log-card">
+<div class="log-header" onclick="toggleLog(this)">Sick Murder Cases.（2015/10/31）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール</div>
+<div class="log-entry"><span class="log-tag">GM</span> むらさん</div>
+<div class="log-entry"><span class="log-tag">ED</span> TRUE END - 蛇之眼</div></div>
+<div class="log-comment">マモレナカッタ……（２人くらい）　でもやることはやった。後悔はない。<br/>
+些事ですが全てを思い出しました。ありがとうございます。<br/>
+さらばハルさん……</div>
+</div>
+</div>
+<div class="log-card">
+<div class="log-header" onclick="toggleLog(this)">告明鳥（2015/10/31）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> フィラ・リシャーニー、ベルノルト・アインハルト</div>
+<div class="log-entry"><span class="log-tag">GM</span> 冬弥</div>
+<div class="log-entry"><span class="log-tag">ED</span> TRUE - 裏　『Pullet』</div></div>
+<div class="log-comment">お前がママになるんだよォ！！（ここで花嫁）<br/>
+どこのくっ殺かなって感じのムーブしながら気障っ子を確保したりした。<br/>
+このゴリラなんでジルさんにやたらと突っかかるんだろう。反抗期かな？</div>
+</div>
+</div>
+<div class="log-card">
+<div class="log-header" onclick="toggleLog(this)">求めた末に（2015/09/25）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール</div>
+<div class="log-entry"><span class="log-tag">GM</span> むらさん</div>
+<div class="log-entry"><span class="log-tag">ED</span> TRUE - 裏　『To be continued　　A.V.』</div></div>
+<div class="log-comment">捨てられたおーちゃんが大暴走！困ったワールさんが助けを求めてきたぞ！<br/>
+でも話聞いてるとあのそれ１２０％ワールさんが原因……ｱｯﾊｲ……とりあえずおーちゃんの沈静化には穏やかな方法で成功。<br/>
+戦闘で死んだと思ったがそんな事は無かったぜ。<br/>
+そして本性を現すクレイジーサイコハルさん。次回に！つづく！！</div>
+</div>
+</div>
+<div class="log-card">
+<div class="log-header" onclick="toggleLog(this)">君の面影を（2015/09/24）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール</div>
+<div class="log-entry"><span class="log-tag">GM</span> むらさん</div>
+<div class="log-entry"><span class="log-tag">ED</span> TRUE　『レオニード』</div></div>
+<div class="log-comment">休暇という名目で放り出された町に昔の姿をしたワールさんが！<br/>
+その後ワールさんのおホ……お友達の蘇生を手伝わされたおはなし。<br/>
+ワールさんは生き返ったお友達と恋人になるそうだ。おーちゃん……。</div>
+</div>
+</div>
+<div class="log-card">
+<div class="log-header" onclick="toggleLog(this)">真（2015/06/14）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール、エルテ・ミューゼロット</div>
+<div class="log-entry"><span class="log-tag">GM</span> むらさん</div>
+<div class="log-entry"><span class="log-tag">ED</span> GOOD S - 「誠」</div></div>
+<div class="log-comment">消えたベルくんをさがせ！なんか色々えらいことになってんぞ！<br/>
+なんとか誰一人殺さずベル君救出した。いろんな柵が手に馴染んだようなイシュマだった。<br/>
+きみはそのままでいいんだよ！！！そのままのきみがすきだよ！！！！！！</div>
+</div>
+</div>
+<div class="log-card">
+<div class="log-header" onclick="toggleLog(this)">水鏡（2015/06/14）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> アンリ・ガスパール・アルフォンス・ノレ、ヴィーネ・アイレンベルク</div>
+<div class="log-entry"><span class="log-tag">GM</span> 冬弥</div>
+<div class="log-entry"><span class="log-tag">ED</span> END - 「水葬」</div></div>
+<div class="log-comment">原罪シャッフル卓！楽しかった！<br/>
+冬弥さんとこの子はみんなほっぺた伸ばしたい。オリヴィエさん可愛かった。<br/>
+にょたまえるしたり設定掘りまくったりなんかいろいろ。ありがとうございました。</div>
+</div>
+</div>
+<div class="log-card">
+<div class="log-header" onclick="toggleLog(this)">騒がしき休日（2015/06/07）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール、ツィータ・アンネリース・クリスタル</div>
+<div class="log-entry"><span class="log-tag">GM</span> むらさん</div>
+<div class="log-entry"><span class="log-tag">ED</span> 騒がしき休日　END - 「歯車壊して」</div></div>
+<div class="log-comment">ヴィーネ・アイレンベルク<br/>
+ああ＾～ロリショタ卓なんじゃぁ＾～<br/>
+ゼバスさんがとてもゼバスさん。「遺品」で取りこぼした情報拾えてよかった！<br/>
+放火魔神父は外側だけ子供に戻って目線が低かったのだ。</div>
+</div>
+</div>
+<div class="log-card">
+<div class="log-header" onclick="toggleLog(this)">神々の遺品（2015/05/31）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール、ツィータ・アンネリース・クリスタル</div>
+<div class="log-entry"><span class="log-tag">GM</span> むらむらむらさんさん</div>
+<div class="log-entry"><span class="log-tag">ED</span> S END - 『遺し者遺されし者』</div></div>
+<div class="log-comment">ゼバスさん（ゼバスさん） #ゼバスさん<br/>
+黒山羊が絡むと精神的に弱くなるままだよ。<br/>
+エルンスト君可愛かったぜ……EX行きたかった……_(┐「ε:)_</div>
+</div>
+</div>
+<div class="log-card">
+<div class="log-header" onclick="toggleLog(this)">消えた足（2015/04/12）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール</div>
+<div class="log-entry"><span class="log-tag">GM</span> むらむらむらさんさん</div>
+<div class="log-entry"><span class="log-tag">ED</span> END EXTRA - 「七色変化の虹心」</div></div>
+<div class="log-comment">絶対裏設定掘り出すマンみたいになってた。超楽しかった。<br/>
+なんでこの神父こんな全方位に喧嘩売るんだろう。もうむらさんに足向けて寝れない。ごめんなさい。<br/>
+私はみんなだいすきなんだ。NPC可愛かった。めでる。</div>
+</div>
+</div>
+<div class="log-card">
+<div class="log-header" onclick="toggleLog(this)">螺旋（2015/03/14）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> ベルノルト・アインハルト</div>
+<div class="log-entry"><span class="log-tag">GM</span> 冬弥</div>
+<div class="log-entry"><span class="log-tag">ED</span> TRUE ： 「諧調」</div></div>
+<div class="log-comment">ス君は尊い（ここで安らかな顔をして息を引き取る）<br/>
+ベルくんと喧嘩した結果彼への態度に一応の結論を見出せたイシュマであった。<br/>
+関係トラブルチャートを振り直したりもしました。ス君の関係チャート両思い多くない？</div>
+</div>
+</div>
+<div class="log-card">
+<div class="log-header" onclick="toggleLog(this)">赤き路のその果に（2015/03/02）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール</div>
+<div class="log-entry"><span class="log-tag">GM</span> むらむらむらさんさん</div>
+<div class="log-entry"><span class="log-tag">ED</span> TRUE 裏 ： 「華舞う路のその果てに」</div>
+<div class="log-entry"><span class="log-tag">PC</span> PC的には複雑な心境だろうけどPL的には満足。</div></div>
+<div class="log-comment">ベル君の母親を殺せっておはなし。ベルキチ兄貴久しぶりだな！！<br/>
+エンディングであんなこと言ったけど！！！実際は言わねえぞ！！！言わねえからな！！！！！</div>
+</div>
+</div>
+<div class="log-card highlight-npc">
+<div class="log-header" onclick="toggleLog(this)">ミルキークォーツ（2015/02/21） - NPC登場</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">PC</span> スヴェン・エーケダール、エルテ・ミューゼロット、ベルノルト・アインハルト</div>
+<div class="log-entry"><span class="log-tag">GM</span> 比企</div>
+<div class="log-entry"><span class="log-tag">ED</span> END TRUE - 「火葬」</div></div>
+<div class="log-comment">想定してたどのエンドよりもいい感じで終わりました。ありがとうありがとう。<br/>
+なんかもうやりたいこと全部やった</div>
+</div>
+</div>
+<div class="log-card">
+<div class="log-header" onclick="toggleLog(this)">赤い糸（2015/02/14）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール、エルテ・ミューゼロット</div>
+<div class="log-entry"><span class="log-tag">GM</span> むらむらむらさんさん</div>
+<div class="log-entry"><span class="log-tag">ED</span> END　TRUE - S 「そしてかくも日常は廻る」</div></div>
+<div class="log-comment">ベル兄弟シナリオ。ス君とちょっと仲良くなった。エルテ君に捕捉された。<br/>
+ベル君の後見人となる。テイクアウト。血は争えなかった。</div>
+</div>
+</div>
+<div class="log-card">
+<div class="log-header" onclick="toggleLog(this)">偏食のfratricide（2014/12/20）</div>
+<div class="log-body">
+<div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール、ベルノルト・アインハルト、クーレイズ＝E・キリングレイ</div>
+<div class="log-entry"><span class="log-tag">GM</span> 水崎もあ</div></div>
+<div class="log-comment">節制を司る聖者の石を回収せよとの命令。<br/>
+ゲス３人に囲まれる新米魔女。でも最終的には彼もわりとやることやってた。<br/>
+実際動かしてみたらイシュマエルわりとまともでした（こなみかん）</div>
+</div>
+</div>
+</div>
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(el=>el.style.display='none');
+  document.getElementById(id).style.display='block';
+  document.querySelectorAll('.tab-nav button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function updateHeroImage() {
+  const img = document.querySelector('.hero img');
+  const scrollY = window.scrollY;
+  // スクロールが増えるほど上へ動く（係数0.05は調整用）
+  img.style.transform = `translate(5%, ${-scrollY * 0.3}px)`;
+}
+document.addEventListener('DOMContentLoaded', updateHeroImage);
+window.addEventListener('scroll', updateHeroImage);
+
+function toggleEquipment(header) {
+  const content = header.nextElementSibling;
+  const sign = header.querySelector('span');
+  const isOpen = content.style.display === 'block';
+  document.querySelectorAll('.equipment-content').forEach(c => c.style.display = 'none');
+  document.querySelectorAll('.equipment-header span').forEach(s => s.textContent = '＋');
+  if (!isOpen) {
+    content.style.display = 'block';
+    sign.textContent = '－';
+  }
+}
+
+// 注釈クリック表示
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('note')) {
+    const key = e.target.dataset.note;
+    const el = document.getElementById('note-' + key);
+    if (el) {
+      el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
+    }
+  }
+});
+
+function toggleLog(header) {
+  const allBodies = document.querySelectorAll('.log-body');
+  const currentBody = header.nextElementSibling;
+  const isOpen = currentBody.style.display === 'block';
+
+  // すべて閉じる
+  allBodies.forEach(body => body.style.display = 'none');
+
+  // 押したカードが閉じていたら開く
+  if (!isOpen) {
+    currentBody.style.display = 'block';
+  }
+}
+// 上に戻るボタン
+const topBtn = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 200) {
+    topBtn.style.display = 'block';
+  } else {
+    topBtn.style.display = 'none';
+  }
+});
+topBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const bg = document.querySelector('.background-image');
+  // 逆方向に動かす: 下にスクロールすると背景が上に動く
+  const offset = scrollY * -0.5;  // -0.2 は動きの速さ（調整可）
+  bg.style.backgroundPosition = `center calc(150% + ${offset}px)`;
+});
+
+</script>
+</body>
+</html>
