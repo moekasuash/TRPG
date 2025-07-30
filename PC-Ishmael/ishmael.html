@@ -484,6 +484,39 @@ html, body {
   background-color: #272727; /* 背景色を黒に */
 }
 
+@media (max-width: 768px) {
+  /* hero部分の全体調整 */
+  .hero {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .hero img {
+    max-width: 60%;  /* 画像は幅の6割 */
+    height: auto;
+    object-fit: contain;
+  }
+
+  .hero-text {
+    padding-left: 5%;
+    margin-left: 0;
+    max-width: 40%;  /* テキストは幅の4割 */
+  }
+
+  .hero-text h1 {
+    font-size: 2em;  /* 過剰な大きさを抑える */
+  }
+
+  .hero-text h2 {
+    font-size: 1em;
+  }
+
+  .hero-text p {
+    font-size: 0.9em;
+  }
+}
+
+  
 </style>
 </head>
 <body>
