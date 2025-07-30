@@ -526,10 +526,15 @@ html, body {
 
   /* 背景アイコンの調整（例: 左上固定） */
   .background-image {
-    left: 50%;
+    right: 50%;
     transform: translateX(-50%);
     top: 5%;
-    width: 150%;
+    width: 200%;
+  }
+    body {
+    background-attachment: scroll !important;
+    background-position: center top !important;
+    background-size: cover !important;
   }
 }
 
