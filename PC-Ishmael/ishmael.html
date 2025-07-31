@@ -5,547 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>イシュマエル キャラシート</title>
-<style>
-body {
-  margin: 0;
-  font-family: "Yu Mincho", serif;
-  color: #222;
-  background: #fff;
-  overflow-x: hidden;
-}
-
-/* --- ヒーロー画像 --- */
-.hero {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-}
-.hero img {
-  position: fixed;
-  top: -100px;
-  right: -5%;
-  width: 70%;
-  height: auto;
-  object-fit: contain;
-  z-index: 1;
-  pointer-events: none;
-  transform: translate(0, 0);
-}
-.hero-text {
-  position: relative;
-  z-index: 10;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-left: 15%;
-  color: #ffffff;
-  text-align: left;
-  margin-left: 5%;
-  max-width: 600px;
-}
-
-/* 名前（日本語） */
-.hero-text h1 {
-  font-size: 4.5em;              /* 大きくする */
-  font-weight: bold;
-  color: #ffffff;
-  margin: 0.2em 0;
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
-}
-
-/* 英字名 */
-.hero-text h2 {
-  font-size: 2em;
-  font-weight: normal;
-  color: #cccccc;                /* グレーがかった色 */
-  margin: 0.2em 0;
-  text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
-}
-
-/* セリフ */
-.hero-text p {
-  font-size: 1.4em;
-  font-style: italic;            /* 斜体 */
-  color: #e0e0e0;
-  margin: 0.5em 0 0 0;
-  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-}
-
-.hero-text h1,
-.hero-text h2,
-.hero-text p {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeSlideIn 0.8s ease forwards;
-}
-
-/* 表示順 */
-.hero-text h1 { animation-delay: 0.2s; }
-.hero-text h2 { animation-delay: 0.5s; }
-.hero-text p  { animation-delay: 0.8s; }
-
-@keyframes fadeSlideIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-/* --- 上に戻るボタン --- */
-#backToTop {
-  display: none;
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  z-index: 999;
-  background-color: rgba(50, 50, 50, 0.7);
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 50%;
-  font-size: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-#backToTop:hover {
-  background-color: rgba(20, 20, 20, 0.9);
-}
-
-/* 左上のポータルボタン */
-.portal-button {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 1000;
-  background-color: rgba(50, 50, 50, 0.7);
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 6px;
-  font-size: 14px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-.portal-button:hover {
-  background-color: rgba(20, 20, 20, 0.9);
-}
-
-
-/* --- タブセクション --- */
-.tab-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  background: rgba(255,255,255,0.7);
-  border-radius: 8px;
-  position: relative;
-  z-index: 5;
-}
-.tab-nav {
-  display: flex;
-  border-bottom: 2px solid #333;
-  position: sticky;
-  top: 0;
-  background: rgba(255,255,255,0.95);
-  z-index: 1000;
-  border-radius: 8px 8px 0 0;
-}
-.tab-nav button {
-  flex: 1;
-  padding: 10px;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  border-right: 1px solid #333;
-  font-size: 1rem;
-}
-.tab-nav button:last-child { border-right: none; }
-.tab-nav button.active { background: rgba(200,200,200,0.4); }
-.tab-content {
-  padding: 20px;
-  min-height: 500px;
-  position: relative;
-  z-index: 10;
-  background: rgba(255,255,255,0.6);
-  border-radius: 0 0 6px 6px;
-}
-
-/* --- 見出し --- */
-.tab-content h3 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin: 20px 0 15px 0;
-}
-
-/* --- グリッド型基本情報 --- */
-.info-grid {
-  max-width: 900px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 12px 20px;
-}
-.info-item {
-  background: rgba(255,255,255,0.6);
-  border: 1px solid #666;
-  padding: 8px 10px;
-  border-radius: 4px;
-}
-.info-item strong {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 4px;
-}
-
-/* --- 能力値カード --- */
-.stats-grid {
-  max-width: 900px;
-  margin: 30px auto 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px 20px;
-}
-.stat-card {
-  background: rgba(255,255,255,0.8);
-  border: 1px solid #555;
-  border-radius: 8px;
-  padding: 10px;
-  position: relative;
-}
-.stat-card h4 { margin: 0; font-size: 1.2rem; }
-.stat-values { margin-top: 5px; font-size: 1rem; }
-.stat-values .final { font-weight: bold; font-size: 1.3rem; }
-.bonus-tag {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  font-size: 0.8rem;
-  color: #444;
-  background: rgba(200,200,200,0.4);
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-/* --- 合計値 --- */
-.total-stat {
-  max-width: 900px;
-  margin: 25px auto;
-  font-size: 1.6rem;
-  font-weight: bold;
-  text-align: center;
-  padding: 14px 10px;
-  border-radius: 10px;
-  border: 2px solid #999;
-  background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(200,200,200,0.5));
-  box-shadow: 0 0 10px rgba(160,160,160,0.3);
-}
-
-/* 履歴・装備リストなど */
-details {
-  border: 1px solid #999;
-  border-radius: 5px;
-  padding: 8px;
-  margin-bottom: 10px;
-  background: rgba(255,255,255,0.6);
-}
-summary { cursor: pointer; font-weight: bold; font-size: 1.1em; }
-.log-detail { margin-top: 8px; padding-left: 10px; }
-
-.equipment-list {
-  max-width: 800px;
-  margin: 0 auto;
-}
-.equipment-item {
-  background: rgba(255,255,255,0.8);
-  border: 1px solid #555;
-  border-radius: 8px;
-  margin-bottom: 15px;
-}
-.equipment-header {
-  padding: 12px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.equipment-header:hover {
-  background: rgba(0,0,0,0.05);
-}
-.equipment-content {
-  display: none;
-  padding: 15px;
-  border-top: 1px solid #555;
-}
-.character-content {
-  padding: 15px;
-  border-top: 1px solid #555;
-  background: rgba(255,255,255,0.8);
-  border-radius: 8px;
-}
-.equipment-content table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 12px;
-}
-.equipment-content td {
-  padding: 8px 10px;
-  border-bottom: 1px solid #aaa;
-  font-size: 1rem;
-}
-.equipment-content td:nth-child(odd) {
-  font-weight: bold;
-  width: 25%;
-}
-.equipment-content p {
-  margin: 0;
-  padding: 10px;
-  background: rgba(240,240,240,0.7);
-  border-radius: 5px;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-.note { color: blue; cursor: pointer; text-decoration: underline; }
-.note-text { background: rgba(240,240,240,0.8); padding: 8px; border-radius: 5px; margin-top: 8px; }
-
-/* --- 卓履歴カード --- */
-.log-card {
-  border: 1px solid #999;
-  border-radius: 8px;
-  margin: 15px auto;
-  max-width: 700px;
-  background: rgba(255,255,255,0.8);
-  overflow: hidden;
-}
-.log-header {
-  font-weight: bold;
-  padding: 12px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  border-bottom: 1px solid #ccc;
-  background: rgba(240,240,240,0.9);
-}
-.log-body { display: none; padding: 12px; }
-.log-info {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-.log-tag {
-  display: inline-block;
-  background: #eee;
-  border: 1px solid #666;
-  border-radius: 4px;
-  padding: 3px 8px;
-  font-weight: bold;
-  margin-right: 5px;
-}
-.log-entry {
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  gap: 6px;
-  margin-right: 15px;
-  white-space: nowrap;
-}
-.log-comment {
-  background: rgba(240,240,240,0.8);
-  border-radius: 4px;
-  padding: 10px;
-  font-size: 0.95rem;
-}
-.highlight-gold .log-header { background: linear-gradient(to bottom, #f7f3df, #f7f3df); }
-.highlight-npc .log-header { background: linear-gradient(to bottom, #ffffff, #ffffff); }
-
-
-
-body, .hero, .tab-container {
-  position: relative;
-  z-index: 5;
-}
-
-/* 背景画像 */
-.background-image {
-  position: fixed;
-  top: 30;
-  left: 0;
-  width: 200%;
-  height: 200%;
-  background: url('back.png') center center / cover no-repeat;
-  z-index: 0;
-}
-
-/* 火の粉動画 */
-
-
-/* コンテンツ全体は動画より前 */
-body, .hero, .tab-container {
-  position: relative;
-  z-index: 5;
-}
-
-/* 従者・保管テーブル */
-.storage-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.storage-table th, .storage-table td {
-    padding: 8px 10px;
-    border-bottom: 1px solid #ccc;
-    text-align: left;
-    font-size: 15px;
-}
-
-.storage-table th {
-    background: rgba(0,0,0,0.1);
-    font-weight: bold;
-}
-
-/* セクション全体 */
-.storage-section {
-    margin: 20px 0;
-    padding: 15px;
-    background: rgba(255,255,255,0.5);
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.styled-table {
-  width: 100%;
-  max-width: 700px;
-  table-layout: fixed;       /* 列幅を固定 */
-  border-collapse: collapse;
-  margin: 8px 0;
-  font-size: 14px;
-  text-align: center;
-  background: rgba(255,255,255,0.8);
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.styled-table th,
-.styled-table td {
-  padding: 4px 6px;
-  line-height: 1.3;
-  white-space: normal;       /* 折り返し許可 */
-  vertical-align: middle;
-}
-
-.styled-table thead th:nth-child(1) {
-  width: 35%;                /* 名称列を広めに */
-}
-.styled-table thead th:nth-child(2),
-.styled-table thead th:nth-child(3),
-.styled-table thead th:nth-child(4),
-.styled-table thead th:nth-child(5) {
-  width: 12%;                /* 数字系の列を細く */
-}
-
-/* 保管品リスト専用 */
-.styled-table.wide {
-  table-layout: auto;    /* 列幅を内容に応じる */
-}
-
-.styled-table.wide th:nth-child(1) { width: 25%; }  /* 名称 */
-.styled-table.wide th:nth-child(2) { width: 10%; }  /* 価値 */
-.styled-table.wide th:nth-child(3) { width: 15%; }  /* 重さ */
-.styled-table.wide th:nth-child(4) { width: 50%; }  /* 備考（広め） */
-
-.note-box {
-  margin-top: 6px;
-  font-size: 12px;
-  color: #333;
-  background: rgba(255,255,255,0.6);
-  padding: 6px 8px;
-  border-radius: 4px;
-  line-height: 1.4;
-}
-
-/* 背景とキャラの間に置くsin_wrathアイコン */
-.wrath-icon {
-  position: fixed;
-  top: -10%;
-  left: 0;
-  width: 70%;
-  height: auto;
-  opacity: 0.5;
-  z-index: 1; /* 背景より前、キャラより後ろ */
-  pointer-events: none;
-}
-
-html, body {
-  background-color: #272727; /* 背景色を黒に */
-}
-
-@media (max-width: 768px) {
-
-    body {
-    background-attachment: scroll !important;
-    background-position: center top !important;
-    background-size: cover !important;
-  }
-  
-  /* hero全体を縦並びに */
-  .hero {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  /* キャラ画像 */
-  .hero img {
-    width: 150%;
-    height: auto;
-    max-width: none; /* スマホでは画面いっぱいに */
-    object-fit: cover;
-    object-position: center top; /* 画像の中央を見せる */
-    margin-bottom: 1rem;
-  }
-
-  /* テキストエリア */
-  .hero-text {
-    padding: 0;
-    margin: 0 auto;
-    max-width: 90%;
-    text-align: center;
-  }
-
-  .hero-text h1 {
-    font-size: 2.2em;
-    margin-bottom: 0.3em;
-  }
-
-  .hero-text h2 {
-    font-size: 1.1em;
-    margin-bottom: 0.5em;
-  }
-
-  .hero-text p {
-    font-size: 1em;
-  }
-
-  .wrath-icon {
-  position: fixed;
-  top: -10%;
-  right: 40%;
-  width: 150%;
-  height: auto;
-  opacity: 0.5;
-  z-index: 1; /* 背景より前、キャラより後ろ */
-  pointer-events: none;
-}
-}
-
-
-  
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="background-image"></div>
@@ -559,6 +19,15 @@ html, body {
 <h1>イシュマエル</h1>
 <h2>Ishmael Vickers</h2>
 <p>「振りかかる火の粉は、この手で払うまでだ」</p>
+ <div class="hero-chart">
+    <canvas id="statusChart" width="320" height="320"></canvas>
+    <div class="hero-extra">
+      <div class="extra-box" id="fateBox"></div>
+      <div class="extra-box" id="powerBox"></div>
+      <div class="extra-box" id="sinBox"></div>
+    </div>
+  </div>
+  </div>
 </div>
 </div>
 <button id="backToTop" title="ページ上部へ">▲</button>
@@ -1022,7 +491,6 @@ html, body {
         1※
        </td>
        <td colspan="3">
-        (同居PC: 紫咲さん、価値は「女中」準拠)
        </td>
       </tr>
       <tr>
@@ -1033,7 +501,6 @@ html, body {
         1※
        </td>
        <td colspan="3">
-        (同居PC: 冬弥さん、価値は「女中」準拠)
        </td>
       </tr>
      </tbody>
@@ -1205,7 +672,7 @@ html, body {
 <div class="tab-content" id="history" style="display:none">
 <h3>シナリオ履歴</h3>
 <div class="log-card highlight-gold">
-<div class="log-header" onclick="toggleLog(this)">琥珀（2016/06/01）</div>
+<div class="log-header">琥珀（2016/06/01）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・アダルベルト</div>
 <div class="log-entry"><span class="log-tag">GM</span> むらさん</div>
@@ -1215,7 +682,7 @@ html, body {
 </div>
 </div>
 <div class="log-card highlight-gold">
-<div class="log-header" onclick="toggleLog(this)">金の楽譜（2016/02/21）</div>
+<div class="log-header">金の楽譜（2016/02/21）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・アダルベルト</div>
 <div class="log-entry"><span class="log-tag">GM</span> むらさん</div>
@@ -1225,7 +692,7 @@ html, body {
 </div>
 </div>
 <div class="log-card highlight-npc">
-<div class="log-header" onclick="toggleLog(this)">Hopes Bright（2015/12/12） - NPC登場（PC卒業シナリオ）</div>
+<div class="log-header">Hopes Bright（2015/12/12） - NPC登場（PC卒業シナリオ）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">PC</span> スヴェン・アダルベルト、ベルノルト・アインハルト</div>
 <div class="log-entry"><span class="log-tag">GM</span> 比企</div>
@@ -1236,7 +703,7 @@ html, body {
 </div>
 </div>
 <div class="log-card">
-<div class="log-header" onclick="toggleLog(this)">夢浮橋（2015/12/02）</div>
+<div class="log-header">夢浮橋（2015/12/02）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> ベルノルト・アインハルト、フィラ・リシャーニー</div>
 <div class="log-entry"><span class="log-tag">GM</span> 冬弥</div>
@@ -1247,7 +714,7 @@ html, body {
 </div>
 </div>
 <div class="log-card">
-<div class="log-header" onclick="toggleLog(this)">Sick Murder Cases.（2015/10/31）</div>
+<div class="log-header">Sick Murder Cases.（2015/10/31）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール</div>
 <div class="log-entry"><span class="log-tag">GM</span> むらさん</div>
@@ -1258,7 +725,7 @@ html, body {
 </div>
 </div>
 <div class="log-card">
-<div class="log-header" onclick="toggleLog(this)">告明鳥（2015/10/31）</div>
+<div class="log-header">告明鳥（2015/10/31）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> フィラ・リシャーニー、ベルノルト・アインハルト</div>
 <div class="log-entry"><span class="log-tag">GM</span> 冬弥</div>
@@ -1269,7 +736,7 @@ html, body {
 </div>
 </div>
 <div class="log-card">
-<div class="log-header" onclick="toggleLog(this)">求めた末に（2015/09/25）</div>
+<div class="log-header">求めた末に（2015/09/25）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール</div>
 <div class="log-entry"><span class="log-tag">GM</span> むらさん</div>
@@ -1281,7 +748,7 @@ html, body {
 </div>
 </div>
 <div class="log-card">
-<div class="log-header" onclick="toggleLog(this)">君の面影を（2015/09/24）</div>
+<div class="log-header">君の面影を（2015/09/24）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール</div>
 <div class="log-entry"><span class="log-tag">GM</span> むらさん</div>
@@ -1292,7 +759,7 @@ html, body {
 </div>
 </div>
 <div class="log-card">
-<div class="log-header" onclick="toggleLog(this)">真（2015/06/14）</div>
+<div class="log-header">真（2015/06/14）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール、エルテ・ミューゼロット</div>
 <div class="log-entry"><span class="log-tag">GM</span> むらさん</div>
@@ -1303,7 +770,7 @@ html, body {
 </div>
 </div>
 <div class="log-card">
-<div class="log-header" onclick="toggleLog(this)">水鏡（2015/06/14）</div>
+<div class="log-header">水鏡（2015/06/14）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> アンリ・ガスパール・アルフォンス・ノレ、ヴィーネ・アイレンベルク</div>
 <div class="log-entry"><span class="log-tag">GM</span> 冬弥</div>
@@ -1314,7 +781,7 @@ html, body {
 </div>
 </div>
 <div class="log-card">
-<div class="log-header" onclick="toggleLog(this)">騒がしき休日（2015/06/07）</div>
+<div class="log-header">騒がしき休日（2015/06/07）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール、ツィータ・アンネリース・クリスタル</div>
 <div class="log-entry"><span class="log-tag">GM</span> むらさん</div>
@@ -1326,7 +793,7 @@ html, body {
 </div>
 </div>
 <div class="log-card">
-<div class="log-header" onclick="toggleLog(this)">神々の遺品（2015/05/31）</div>
+<div class="log-header">神々の遺品（2015/05/31）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール、ツィータ・アンネリース・クリスタル</div>
 <div class="log-entry"><span class="log-tag">GM</span> むらむらむらさんさん</div>
@@ -1337,7 +804,7 @@ html, body {
 </div>
 </div>
 <div class="log-card">
-<div class="log-header" onclick="toggleLog(this)">消えた足（2015/04/12）</div>
+<div class="log-header">消えた足（2015/04/12）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール</div>
 <div class="log-entry"><span class="log-tag">GM</span> むらむらむらさんさん</div>
@@ -1348,7 +815,7 @@ html, body {
 </div>
 </div>
 <div class="log-card">
-<div class="log-header" onclick="toggleLog(this)">螺旋（2015/03/14）</div>
+<div class="log-header">螺旋（2015/03/14）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> ベルノルト・アインハルト</div>
 <div class="log-entry"><span class="log-tag">GM</span> 冬弥</div>
@@ -1359,7 +826,7 @@ html, body {
 </div>
 </div>
 <div class="log-card">
-<div class="log-header" onclick="toggleLog(this)">赤き路のその果に（2015/03/02）</div>
+<div class="log-header">赤き路のその果に（2015/03/02）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール</div>
 <div class="log-entry"><span class="log-tag">GM</span> むらむらむらさんさん</div>
@@ -1370,7 +837,7 @@ html, body {
 </div>
 </div>
 <div class="log-card highlight-npc">
-<div class="log-header" onclick="toggleLog(this)">ミルキークォーツ（2015/02/21） - NPC登場</div>
+<div class="log-header">ミルキークォーツ（2015/02/21） - NPC登場</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">PC</span> スヴェン・エーケダール、エルテ・ミューゼロット、ベルノルト・アインハルト</div>
 <div class="log-entry"><span class="log-tag">GM</span> 比企</div>
@@ -1380,7 +847,7 @@ html, body {
 </div>
 </div>
 <div class="log-card">
-<div class="log-header" onclick="toggleLog(this)">赤い糸（2015/02/14）</div>
+<div class="log-header">赤い糸（2015/02/14）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール、エルテ・ミューゼロット</div>
 <div class="log-entry"><span class="log-tag">GM</span> むらむらむらさんさん</div>
@@ -1390,7 +857,7 @@ html, body {
 </div>
 </div>
 <div class="log-card">
-<div class="log-header" onclick="toggleLog(this)">偏食のfratricide（2014/12/20）</div>
+<div class="log-header">偏食のfratricide（2014/12/20）</div>
 <div class="log-body">
 <div class="log-info"><div class="log-entry"><span class="log-tag">同行</span> スヴェン・エーケダール、ベルノルト・アインハルト、クーレイズ＝E・キリングレイ</div>
 <div class="log-entry"><span class="log-tag">GM</span> 水崎もあ</div></div>
@@ -1400,79 +867,8 @@ html, body {
 </div>
 </div>
 </div>
-<script>
-function showTab(id, btn) {
-  document.querySelectorAll('.tab-content').forEach(el=>el.style.display='none');
-  document.getElementById(id).style.display='block';
-  document.querySelectorAll('.tab-nav button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-}
-function updateHeroImage() {
-  const img = document.querySelector('.hero img');
-  const scrollY = window.scrollY;
-  // スクロールが増えるほど上へ動く（係数0.05は調整用）
-  img.style.transform = `translate(5%, ${-scrollY * 0.3}px)`;
-}
-document.addEventListener('DOMContentLoaded', updateHeroImage);
-window.addEventListener('scroll', updateHeroImage);
-
-function toggleEquipment(header) {
-  const content = header.nextElementSibling;
-  const sign = header.querySelector('span');
-  const isOpen = content.style.display === 'block';
-  document.querySelectorAll('.equipment-content').forEach(c => c.style.display = 'none');
-  document.querySelectorAll('.equipment-header span').forEach(s => s.textContent = '＋');
-  if (!isOpen) {
-    content.style.display = 'block';
-    sign.textContent = '－';
-  }
-}
-
-// 注釈クリック表示
-document.addEventListener('click', function(e) {
-  if (e.target.classList.contains('note')) {
-    const key = e.target.dataset.note;
-    const el = document.getElementById('note-' + key);
-    if (el) {
-      el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
-    }
-  }
-});
-
-function toggleLog(header) {
-  const allBodies = document.querySelectorAll('.log-body');
-  const currentBody = header.nextElementSibling;
-  const isOpen = currentBody.style.display === 'block';
-
-  // すべて閉じる
-  allBodies.forEach(body => body.style.display = 'none');
-
-  // 押したカードが閉じていたら開く
-  if (!isOpen) {
-    currentBody.style.display = 'block';
-  }
-}
-// 上に戻るボタン
-const topBtn = document.getElementById('backToTop');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 200) {
-    topBtn.style.display = 'block';
-  } else {
-    topBtn.style.display = 'none';
-  }
-});
-topBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  const bg = document.querySelector('.background-image');
-  // 逆方向に動かす: 下にスクロールすると背景が上に動く
-  const offset = scrollY * -0.5;  // -0.2 は動きの速さ（調整可）
-  bg.style.backgroundPosition = `center calc(150% + ${offset}px)`;
-});
-
-</script>
+<!-- Chart.jsを先に読み込む -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+<script src="script.js"></script>
 </body>
 </html>
