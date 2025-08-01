@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const labels = ['器用', '機敏', '知恵', '体格', '意志', '幸運'];
     const data = labels.map(getFinalValue);
 
-    const chartColor = 'rgba(220,220,220,1)';
-    const chartFill  = 'rgba(220,220,220,0.25)';
+    const chartColor = 'rgba(255,99,132,1)';
+    const chartFill  = 'rgba(255,99,132,0.25)';
 
     new Chart(ctx, {
       type: 'radar',
