@@ -557,11 +557,12 @@ html, body {
 }
 
 .sin-icon {
-  height: 1.6rem !important; /* 文字サイズと同じ高さに強制 */
+  height: 1.4rem !important;
   width: auto !important;
-  vertical-align: middle;
-  margin: 0 0.3rem;
+  vertical-align: text-bottom;
+  margin: 0 0.2rem;
 }
+
 
 @media screen and (max-width: 768px) {
   .hero {
