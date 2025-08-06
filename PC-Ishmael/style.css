@@ -564,43 +564,64 @@ html, body {
 }
 
 @media screen and (max-width: 768px) {
-  #hero {
-    display: flex;
+  .hero {
     flex-direction: column;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    padding: 2rem 1rem;
     height: auto;
-    overflow: hidden;
-  }
-
-  .hero-container {
-    flex-direction: column;
-    align-items: center;
+    padding: 2rem 1rem;
     text-align: center;
   }
 
-  .hero-image {
-    max-width: 80vw;
-    height: auto;
-    margin-bottom: 1rem;
+  .hero img {
+    position: static;
+    width: 90%;
+    max-width: 400px;
+    margin: 1.5rem auto 0;
+    transform: none !important;
   }
 
-  .hero-title {
-    font-size: 2rem;
-    line-height: 1.2;
-  }
-
-  .hero-subtitle {
-    font-size: 1.2rem;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .hero-quote {
-    font-size: 1rem;
-    margin: 0 auto 1.5rem;
+  .hero-text {
+    padding: 0;
+    margin: 0 auto;
+    text-align: center;
     max-width: 90%;
+  }
+
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-text h2 {
+    font-size: 1.4rem;
+  }
+
+  .hero-text p {
+    font-size: 1.1rem;
+  }
+
+  .hero-chart {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .hero-chart canvas {
+    width: 280px !important;
+    height: 280px !important;
+  }
+
+  .hero-extra {
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .extra-box {
+    font-size: 1rem;
+    padding: 6px 8px;
+    min-width: unset;
+  }
+
+  .wrath-icon {
+    display: none;
   }
 }

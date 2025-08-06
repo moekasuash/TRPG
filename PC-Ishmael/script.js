@@ -144,8 +144,12 @@ window.addEventListener('scroll', () => {
 function updateHeroImage() {
   const img = document.querySelector('.hero img');
   const scrollY = window.scrollY;
-  // スクロールが増えるほど上へ動く（係数0.05は調整用）
-  img.style.transform = `translate(5%, ${-scrollY * 0.3}px)`;
+  if (window.innerWidth <= 768) {
+    img.style.transform = 'none';
+  } else {
+    img.style.transform = `translate(5%, ${-scrollY * 0.3}px)`;
+  }
 }
+
 document.addEventListener('DOMContentLoaded', updateHeroImage);
 window.addEventListener('scroll', updateHeroImage);
