@@ -557,11 +557,18 @@ html, body {
 }
 
 .sin-icon {
-  height: 1.4rem !important;
-  width: auto !important;
-  position: relative;
-  top: 0.1rem;
-  margin: 0 0.25rem;
+  height: 1.4rem;
+  width: auto;
+  display: inline-block;
+}
+
+.sin-row {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: bold;
+  font-size: 1.6rem;
+  text-align: left;
 }
 
 
