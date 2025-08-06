@@ -362,7 +362,7 @@ body, .hero, .tab-container {
 /* 背景画像 */
 .background-image {
   position: fixed;
-  top: 30;
+  top: 30px;
   left: 0;
   width: 200%;
   height: 200%;
@@ -370,14 +370,10 @@ body, .hero, .tab-container {
   z-index: 0;
 }
 
-/* 火の粉動画 */
+
 
 
 /* コンテンツ全体は動画より前 */
-body, .hero, .tab-container {
-  position: relative;
-  z-index: 5;
-}
 
 /* 従者・保管テーブル */
 .storage-table {
@@ -460,7 +456,7 @@ body, .hero, .tab-container {
   line-height: 1.4;
 }
 
-/* 背景とキャラの間に置くsin_wrathアイコン */
+/* 背景とキャラの間に置くsin-wrathアイコン */
 .wrath-icon {
   position: fixed;
   top: -10%;
@@ -474,38 +470,6 @@ body, .hero, .tab-container {
 
 html, body {
   background-color: #272727; /* 背景色を黒に */
-}
-
-@media (max-width: 768px) {
-  /* hero部分の全体調整 */
-  .hero {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .hero img {
-    max-width: 60%;  /* 画像は幅の6割 */
-    height: auto;
-    object-fit: contain;
-  }
-
-  .hero-text {
-    padding-left: 5%;
-    margin-left: 0;
-    max-width: 40%;  /* テキストは幅の4割 */
-  }
-
-  .hero-text h1 {
-    font-size: 2em;  /* 過剰な大きさを抑える */
-  }
-
-  .hero-text h2 {
-    font-size: 1em;
-  }
-
-  .hero-text p {
-    font-size: 0.9em;
-  }
 }
 
 .hero-chart {
@@ -563,4 +527,63 @@ html, body {
     rgba(0, 0, 0, 0) 60%
   );
   z-index: 1;
+}
+
+.play-icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4); /* 背景つけても可 */
+  color: #e0e0e0;
+  font-size: 1em;
+  font-weight: bold;
+  margin-left: 0.6em;
+  cursor: pointer;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.play-icon:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #ff9999;
+}
+
+/* セリフ部分のイタリックを無効化 */
+.no-italic {
+  font-style: normal;
+}
+
+.sin-icon {
+  height: 1.6rem !important; /* 文字サイズと同じ高さに強制 */
+  width: auto !important;
+  vertical-align: middle;
+  margin: 0 0.3rem;
+}
+
+@media screen and (max-width: 768px) {
+  #hero {
+    background-size: cover;
+    background-position: center;
+    height: auto;
+    padding: 2rem 1rem;
+  }
+
+  .hero-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-text {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-image {
+    max-width: 100%;
+    height: auto;
+  }
 }

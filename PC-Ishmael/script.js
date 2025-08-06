@@ -92,14 +92,32 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const powerText = `権力Lv. ${power.replace('権力Lv','')}`;
-  const sinText = `原罪 ${sinRaw.replace('原罪','').trim()}`;
+  const sinLabel = sinRaw.replace('原罪', '').trim();
 
-  document.getElementById('fateBox').innerHTML = fateDesc
-    ? `<div style="font-weight:bold; text-align:left; font-size:1.6rem;">${fateTitle}</div><div style="font-size:1rem; font-weight:normal; text-align:left; margin-top:4px;">${fateDesc}</div>`
-    : `<div style="font-weight:bold; text-align:left; font-size:1.6rem;">${fateTitle}</div>`;
+document.getElementById('fateBox').innerHTML = fateDesc
+  ? `<div style="font-weight:bold; text-align:left; font-size:1.6rem;">${fateTitle}</div><div style="font-size:1rem; font-weight:normal; text-align:left; margin-top:4px;">${fateDesc}</div>`
+  : `<div style="font-weight:bold; text-align:left; font-size:1.6rem;">${fateTitle}</div>`;
 
-  document.getElementById('powerBox').innerHTML = `<div style="font-weight:bold; text-align:left; font-size:1.6rem;">${powerText}</div>`;
-  document.getElementById('sinBox').innerHTML = `<div style="font-weight:bold; text-align:left; font-size:1.6rem;">${sinText}</div>`;
+document.getElementById('powerBox').innerHTML = `<div style="font-weight:bold; text-align:left; font-size:1.6rem;">${powerText}</div>`;
+
+document.getElementById('sinBox').innerHTML = `
+  <div style="font-weight:bold; text-align:left; font-size:1.6rem;">
+    原罪 <img src="sin-wrath.png" alt="原罪アイコン" class="sin-icon"> ${sinLabel}
+  </div>`;
+
+
+
+document.querySelectorAll('.play-icon').forEach(icon => {
+  icon.addEventListener('click', () => {
+    const voice = icon.getAttribute('data-voice');
+    if (!voice) return;
+    const audio = document.getElementById('voice-audio');
+    audio.src = voice;
+    audio.play().catch(e => console.error('音声再生エラー:', e));
+  });
+});
+
+
 });
 
 // 上に戻るボタン
