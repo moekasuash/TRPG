@@ -557,10 +557,12 @@ html, body {
 }
 
 .sin-icon {
-  height: 1.4rem;
+  height: 1.6rem;
   width: auto;
   display: inline-block;
+  object-fit: contain;
 }
+
 
 .sin-row {
   display: flex;
@@ -569,7 +571,9 @@ html, body {
   font-weight: bold;
   font-size: 1.6rem;
   text-align: left;
+  line-height: 1.6rem; /* アイコン高さに合わせるとベスト */
 }
+
 
 
 @media screen and (max-width: 768px) {
