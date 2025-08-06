@@ -101,8 +101,9 @@ document.getElementById('fateBox').innerHTML = fateDesc
 document.getElementById('powerBox').innerHTML = `<div style="font-weight:bold; text-align:left; font-size:1.6rem;">${powerText}</div>`;
 
 document.getElementById('sinBox').innerHTML = `
-  <div style="font-weight:bold; text-align:left; font-size:1.6rem;">原罪 ${sinLabel}</div>`;
-
+  <div style="font-weight:bold; text-align:left; font-size:1.6rem;">
+    原罪 <img src="sin-wrath.png" alt="原罪アイコン" class="sin-icon"> ${sinLabel}
+  </div>`;
 
 
 
@@ -143,12 +144,8 @@ window.addEventListener('scroll', () => {
 function updateHeroImage() {
   const img = document.querySelector('.hero img');
   const scrollY = window.scrollY;
-  if (window.innerWidth <= 768) {
-    img.style.transform = 'none';
-  } else {
-    img.style.transform = `translate(5%, ${-scrollY * 0.3}px)`;
-  }
+  // スクロールが増えるほど上へ動く（係数0.05は調整用）
+  img.style.transform = `translate(5%, ${-scrollY * 0.3}px)`;
 }
-
 document.addEventListener('DOMContentLoaded', updateHeroImage);
 window.addEventListener('scroll', updateHeroImage);
