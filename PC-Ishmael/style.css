@@ -576,6 +576,7 @@ html, body {
   cursor: pointer;
   text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
   transition: background-color 0.2s ease, color 0.2s ease;
+  line-height: 1;
 }
 
 .play-icon:hover {
@@ -587,6 +588,20 @@ html, body {
 .no-italic {
   font-style: normal;
 }
+
+.catchphrase {
+  font-size: 1.4rem;
+  text-align: center;
+  margin: 10px auto;
+  color: white;
+  font-weight: bold;
+  white-space: nowrap;           /* ← 折り返し禁止！ */
+  display: flex;                 /* ← 横並び強制 */
+  justify-content: center;       /* ← 中央揃え */
+  align-items: center;           /* ← 縦位置も揃える */
+  gap: 0.3rem;                   /* ← ▶との余白 */
+}
+
 
 @media screen and (max-width: 768px) {
   .hero {
