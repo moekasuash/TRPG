@@ -102,10 +102,11 @@ document.getElementById('powerBox').innerHTML = `<div style="font-weight:bold; t
 
 document.getElementById('sinBox').innerHTML = `
   <div class="sin-row">
-    <span class="sin-label">原罪</span>
+    <span>原罪</span>
     <img src="sin-wrath.png" alt="原罪アイコン" class="sin-icon">
-    <span class="sin-name">${sinLabel}</span>
+    <span>${sinLabel}</span>
   </div>`;
+
 
 
 

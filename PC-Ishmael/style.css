@@ -558,20 +558,18 @@ html, body {
 
 .sin-row {
   display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
+  align-items: baseline;
   font-size: 1.6rem;
   font-weight: bold;
-  line-height: 1.6rem;
-  vertical-align: middle;
 }
 
 .sin-icon {
-  height: 1.2em;
+  height: 1em;
   width: auto;
-  vertical-align: middle;
-  object-fit: contain;
+  vertical-align: baseline;
+  margin: 0 0.2em;
 }
+
 
 
 
