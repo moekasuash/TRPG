@@ -556,20 +556,6 @@ html, body {
   font-style: normal;
 }
 
-.sin-row {
-  display: inline-flex;
-  align-items: baseline;
-  font-size: 1.6rem;
-  font-weight: bold;
-}
-
-.sin-icon {
-  height: 1em;
-  width: auto;
-  vertical-align: baseline;
-  margin: 0 0.2em;
-}
-
 
 
 

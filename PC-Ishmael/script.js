@@ -101,11 +101,7 @@ document.getElementById('fateBox').innerHTML = fateDesc
 document.getElementById('powerBox').innerHTML = `<div style="font-weight:bold; text-align:left; font-size:1.6rem;">${powerText}</div>`;
 
 document.getElementById('sinBox').innerHTML = `
-  <div class="sin-row">
-    <span>原罪</span>
-    <img src="sin-wrath.png" alt="原罪アイコン" class="sin-icon">
-    <span>${sinLabel}</span>
-  </div>`;
+  <div style="font-weight:bold; text-align:left; font-size:1.6rem;">原罪 ${sinLabel}</div>`;
 
 
 
