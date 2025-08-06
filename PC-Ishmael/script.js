@@ -87,11 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let fateTitle = '';
   let fateDesc = '';
   if (fateMatch) {
-    fateTitle = `境遇 ${fateMatch[2]}`;
+    fateTitle = `【境遇】 ${fateMatch[2]}`;
     fateDesc = fateMatch[3].trim();
   }
 
-  const powerText = `権力Lv. ${power.replace('権力Lv','')}`;
+  const powerText = `【権力Lv.】 ${power.replace('権力Lv','')}`;
   const sinLabel = sinRaw.replace('原罪', '').trim();
 
 document.getElementById('fateBox').innerHTML = fateDesc
@@ -102,7 +102,7 @@ document.getElementById('powerBox').innerHTML = `<div style="font-weight:bold; t
 
 document.getElementById('sinBox').innerHTML = `
   <div style="font-weight:bold; text-align:left; font-size:1.6rem;">
-    原罪 ${sinLabel}
+    【原罪】 ${sinLabel}
   </div>`;
 
 
