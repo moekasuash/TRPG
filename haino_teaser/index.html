@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>灰の器 | DECADENCE RPG シナリオ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#2e3236; --ink-soft:#4a4f55; --accent:#6d7a85;
+      --card:#fff; --veil:rgba(255,255,255,.84); --line:#b9c0c6;
+      --shadow:0 6px 18px rgba(30,40,50,.12);
+      --link:#4c6f8a; --link-hover:#2f5874; --badge:#7b8a95;
+      --art-opacity:.8; /* 集合絵の不透明度：80% */
+    }
+    html,body{
+      margin:0;padding:0;height:100%;
+      font-family:'Noto Serif JP',serif; color:var(--ink);
+      background:#fff url('haino_t_haikei.png') center/cover fixed no-repeat;
+    }
+
+    /* ===== 集合絵（左側・縦いっぱい・80%不透明） ===== */
+    .group-art{
+      position:fixed;
+      left:0; top:0;
+      height:100vh;         /* 縦いっぱい */
+      width:auto;           /* アスペクト維持で横は自動 */
+      opacity:var(--art-opacity);
+      pointer-events:none;  /* クリック透過 */
+      z-index:1;            /* 背景より上、カードより下（カードは z-index:2） */
+      object-fit:contain;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,.18));
+      /* ほんの少しだけ暗く & コントラスト控えめにしたい場合は以下をON
+         filter: brightness(.95) contrast(.97) drop-shadow(0 8px 18px rgba(0,0,0,.18)); */
+    }
+
+    /* ロゴ＋見出し（ロゴ1.3倍済） */
+    .logo{ text-align:center; margin:3.2rem 0 1rem; position:relative; z-index:2; }
+    .logo img{
+      width:700px;          /* 340px の 1.3倍 */
+      max-width:90vw;
+      cursor:pointer;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,.18));
+    }
+    .title{
+      text-align:center; font-size:1.9rem; line-height:1.6;
+      color:#f8f9fb; text-shadow:0 2px 8px rgba(0,0,0,.35);
+      position:relative; z-index:2;
+    }
+    .subtitle{
+      text-align:center; font-size:1.15rem; color:#e9eef3; margin:.6rem 0 2.2rem;
+      text-shadow:0 1px 6px rgba(0,0,0,.25); position:relative; z-index:2;
+    }
+
+    /* セクションカード */
+    .section{
+      width:min(860px,90vw);
+      margin:0 auto 2.2rem;
+      background:var(--veil);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:1.6rem 1.4rem;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(2px);
+      position:relative; z-index:2;
+    }
+    h2{
+      margin:.2rem 0 1rem; font-size:1.18rem; letter-spacing:.04em;
+      border-bottom:1px solid var(--line); padding-bottom:.45rem; color:var(--ink-soft);
+    }
+    p,li{ line-height:1.9; }
+    ul{ margin:.2rem 0 .2rem 1.1rem; padding:0; }
+    .credit{
+      text-align:center; color:var(--ink-soft);
+      font-size:.92rem; margin:2.6rem 0 3.2rem; position:relative; z-index:2;
+    }
+    a{ color:var(--link); text-decoration: underline; }
+    a:hover{ color:var(--link-hover); }
+
+    /* 右下ロゴ（トップへ） */
+    .bg-image{
+      position:fixed; right:20px; bottom:20px;
+      width:120px; max-width:26vw; opacity:.55; cursor:pointer;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,.22));
+      transition:opacity .2s ease, transform .2s ease;
+      z-index:10;
+    }
+    .bg-image:hover{ opacity:.75; transform: translateY(-2px); }
+
+    .note{ font-size:.95rem; color:#5a636b; }
+
+    /* --- ハウスルール：カード表示 --- */
+    .rule-list{
+      display:grid; grid-template-columns:1fr; gap:14px; margin:.4rem 0 0;
+    }
+    .rule-card{
+      background:rgba(255,255,255,.9);
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:14px 14px 12px;
+      box-shadow:var(--shadow);
+    }
+    .rule-head{ display:flex; align-items:center; gap:.7rem; margin-bottom:.4rem; }
+    .badge{
+      flex:0 0 auto; width:30px; height:30px; border-radius:50%;
+      display:grid; place-items:center; font-weight:700; color:#fff; background:#7b8a95;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.3);
+    }
+    .rule-title{ font-weight:700; color:var(--ink-soft); letter-spacing:.02em; }
+    .rule-body{ margin:.25rem 0 0 .05rem; }
+    .rule-body ul{ margin:.4rem 0 .2rem 1.2rem; }
+	
+	/* 右側の集合絵（左の .group-art と同じ見た目で右寄せ） */
+	.group-art-right{
+	position: fixed;
+	right: 0; top: 0;
+	height: 100vh;      /* 縦いっぱい */
+	width: auto;        /* アスペクト維持で横は自動 */
+	opacity: var(--art-opacity);
+	pointer-events: none;
+	z-index: 1;         /* カード(=2)より下、背景より上 */
+	object-fit: contain;
+	filter: drop-shadow(0 8px 18px rgba(0,0,0,.18));
+	}
+	
+  </style>
+</head>
+<body>
+  <a id="top"></a>
+
+  <!-- 集合絵（左側・縦いっぱい） -->
+  <img src="haino_t_group.png" alt="集合イラスト" class="group-art">
+<!-- 集合絵（右側・縦いっぱい） ※好きな画像に差し替えOK -->
+<img src="haino_t_group_right.png" alt="集合イラスト（右）" class="group-art-right">
+
+  <!-- ロゴ＆キャッチ -->
+  <div class="logo">
+    <a href="#top"><img src="haino_t_logo.png" alt="灰の器 ロゴ"></a>
+  </div>
+  <div class="title">零れた灰が戻らないなら、何で満たせば良いのだろう。</div>
+  <div class="subtitle">その塵には、しかし未だ温かさが残っている。</div>
+
+  <!-- 導入 -->
+  <div class="section">
+    <h2>導入</h2>
+    <p>
+      先日のオーバーワークを乗り切って幾ばくかの時が過ぎた。<br>
+      増えた子供の一部を別の孤児院へ移し、事務処理の類も落ち着いた。タスク量はようやく平常運転……直属の黒山羊から仕事が降ってこない分、いつもより暇であすらある。<br>
+      しかし経済面はすぐに対応もできない。あなたもあれこれと運営費の工面を行っているが、状況が持ち直すにはもう少し掛かりそうだ。<br><br>
+      知り合いの魔女が落ち着かない様子で孤児院の門戸を叩いたのは、そんな折であった。<br>
+      「遠出に付き合ってくれないか。……謝礼は用意してきたよ、困ってるだろ」
+    </p>
+  </div>
+
+  <!-- 概要 -->
+  <div class="section">
+    <h2>シナリオ概要</h2>
+    <ul>
+      <li>プレイ時間：半テキ１～４日（全日の場合）</li>
+      <li>人数：タイマン</li>
+      <li>使用システム：デカダンスＲＰＧ</li>
+      <li>スタイル：シティ（戦闘なしの可能性有）</li>
+    </ul>
+  </div>
+
+  <!-- ハウスルール（カード表示） -->
+  <div class="section">
+    <h2>ハウスルール</h2>
+    <div class="rule-list">
+      <div class="rule-card">
+        <div class="rule-head"><div class="badge">1</div><div class="rule-title">クリティカル・ファンブル</div></div>
+        <div class="rule-body">
+          <p>
+            1–5 ⇒ クリティカル、96–100 ⇒ ファンブル。<br>
+            クリティカルは<strong>確定成功</strong>、ファンブルは<strong>確定失敗</strong>。ただし<strong>目標値が足りている場合</strong>はファンブルでも<strong>通常成功扱い</strong>。<br>
+            クリティカルなら判定者の<strong>有利</strong>に、ファンブルなら<strong>不利</strong>に結果を変化（GM裁定）。
+          </p>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-head"><div class="badge">2</div><div class="rule-title">経験点の使用制限（振り直し）</div></div>
+        <div class="rule-body">
+          <ul>
+            <li>使用者自身の判定：<strong>3回まで</strong></li>
+            <li>使用者以外の判定：<strong>2回まで</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-head"><div class="badge">3</div><div class="rule-title">NPCについて</div></div>
+        <div class="rule-body">
+          <ul>
+            <li><strong>魔女PCとして稼働経験のあるNPC</strong>：PC同様に各種リソースを持つが、経験点は持たない。使用はPC/PLいずれかから「使って！」の指示があればOK。</li>
+            <li><strong>PC稼働経験のないNPC</strong>：正気点と耐久点以外の点／リソースはシステム上持たない。能力値とリソースの開示に一度だけ〈情報判定〉が必要。<br>
+              <span class="note">※一部NPCのみ経験点を10点所持。使い方はPC稼働済NPCのボーナス点と同様。</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-head"><div class="badge">4</div><div class="rule-title">イニシアチブ同値の処理</div></div>
+        <div class="rule-body"><p>ラウンド1のイニシアチブフェイズに D100 を振り、そのバトル中は<strong>出目の高い方から</strong>行動する。</p></div>
+      </div>
+
+      <div class="rule-card">
+        <div class="rule-head"><div class="badge">5</div><div class="rule-title">回避ルール</div></div>
+        <div class="rule-body">
+          <p>
+            攻撃側の命中判定に対し、回避側は〈機敏〉で対抗。<br>
+            <strong>目標値−出目</strong> を双方で比較して<strong>大きい方が勝利</strong>。ただし回避は<strong>1ラウンドに2回まで</strong>（相手の命中判定を見てから宣言可）。<br>
+            なお、<strong>庇った攻撃に回避は不可</strong>。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- リンク -->
+  <div class="section">
+    <h2>リンク</h2>
+    <ul>
+      <li>OP曲：<a href="https://www.youtube.com/watch?v=FKXMa9kbE8Y" target="_blank" rel="noopener">rise / Origa</a></li>
+    </ul>
+  </div>
+
+  <!-- クレジット（ポータルへ） -->
+  <div class="credit">
+    <a href="https://moekasuash.github.io/TRPG/" target="_blank" rel="noopener">もえかす</a>
+  </div>
+
+  <!-- 右下ロゴ（トップへ） -->
+  <a href="#top" aria-label="ページ最上部へ">
+    <img src="haino_t_logo.png" class="bg-image" alt="灰の器 ロゴ（ページトップへ）">
+  </a>
+</body>
+</html>
