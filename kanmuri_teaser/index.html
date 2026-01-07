@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>TRPG Teaser</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: "Hiragino Mincho ProN", "MS Mincho", serif;
+            overflow: hidden;
+        }
+
+        /* 背景画像 */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("kanmuri_t_haikei.png");
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        /* ロゴ */
+        .logo {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 400px;
+            z-index: 3;
+        }
+
+        /* 最初に見えている短い導入文 */
+        .top-catch {
+            position: absolute;
+            top: 50%;
+            left: 50px;
+            transform: translateY(-50%);
+            z-index: 2;
+            font-size: 1.5rem;
+            line-height: 2.5;
+            letter-spacing: 0.3em;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            pointer-events: none; /* クリックの邪魔をしない */
+        }
+
+        /* 右側のナビメニュー */
+.nav-menu {
+    position: absolute;
+    right: 0; /* 端に寄せる */
+    top: 0;
+    height: 100%;
+    width: 300px; /* メニューの反応領域 */
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+    text-align: right;
+    padding-right: 50px;
+    /* 背景にグラデーションを敷いて文字を浮かせる */
+    background: linear-gradient(to left, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+}
+
+.nav-item {
+    cursor: pointer;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    transition: 0.3s;
+    /* 影を強くして文字の輪郭をはっきりさせる */
+    text-shadow: 0 0 10px #000, 0 0 5px #000; 
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none; /* リンク用 */
+}
+
+.nav-item:hover {
+    color: #fff;
+    transform: translateX(-10px); /* ホバー時に少し左に動かす */
+}
+
+        /* コンテンツ表示エリア */
+        .content-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            max-width: 700px;
+            max-height: 70vh;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 50px;
+            z-index: 20;
+            display: none;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .content-overlay.active {
+            display: block;
+        }
+
+        .close-btn {
+            display: block;
+            text-align: right;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+        }
+
+        h2 {
+            border-left: 3px solid #fff;
+            padding-left: 15px;
+            margin-bottom: 30px;
+            font-weight: normal;
+            letter-spacing: 0.3em;
+        }
+
+        p {
+            line-height: 1.4;
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background"></div>
+    
+    <img src="kanmuri_t_logo.png" class="logo">
+
+    <div class="top-catch">
+        理想は斯くも儚く。<br>
+		強く求めた途端、<br>
+		青い鳥は赤く染まってしまう。
+    </div>
+
+<div class="nav-menu">
+    <div class="nav-item" onclick="showContent('intro')">INTRODUCTION</div>
+    <div class="nav-item" onclick="showContent('handout')">HANDOUT</div>
+    <div class="nav-item" onclick="showContent('regulations')">REGULATIONS</div>
+    <div class="nav-item" onclick="showContent('links')">LINKS</div>
+</div>
+
+    <div id="intro" class="content-overlay">
+        <span class="close-btn" onclick="closeAll()">✕ CLOSE</span>
+        <h2>INTRODUCTION</h2>
+        <p>東京を騒がせるカルト集団。<br>
+物騒な噂には、<br>
+関東一帯を舞台として開始した魔宴の影があった。<br><br>
+理想は斯くも儚く。<br>
+強く求めた途端、青い鳥は赤く染まってしまう。<br><br>
+これは、すすけた理想が紡ぐ物語。<br><br>
+<b>アニマアニムス<br>
+『冠を捧ぐもの』</b><br><br>
+共に行こう。いずれ別れる運命でも。</p>
+    </div>
+
+    <div id="handout" class="content-overlay">
+        <span class="close-btn" onclick="closeAll()">✕ CLOSE</span>
+        <h2>HANDOUT</h2>
+        <p>あなたは長期休暇を利用して海外から日本に帰ってきた。
+帰郷したあなたは、長らく行方の掴めなかった
+かつての学友の居場所を風の噂に聞く。
+<br>
+彼とはかつて家族同然の仲だったが、
+あなたの交際相手をめぐって多少のトラブルがあった。
+揉めているさなかに彼が海外留学で学内から姿を消して、
+彼との関係ははそれきりであった。
+<br>
+あなたがどんな用で帰ってきたにせよ、
+あなたが疎遠の友人にどんな思いを抱いたにせよ、
+確かなことはただひとつ。
+あなたが偶然足を踏み入れたのは
+魔宴の会場であった、という事実だけだ。
+<br>
+メモリア：翼の怪物
+感情（P）好奇心 / 感情（N）嫌悪
+<br>
+パーパス：オープニングで死なない</p>
+    </div>
+
+    <div id="regulations" class="content-overlay">
+        <span class="close-btn" onclick="closeAll()">✕ CLOSE</span>
+        <h2>REGULATIONS</h2>
+        <p>・プレイヤー：1人
+・レベル：1
+・ミドルフェイズ：２～３
+・日程：1/10（土）,11（日）
+・シーンプレイヤーはすべてPC<br></p>
+    </div>
+
+<div id="links" class="content-overlay">
+    <span class="close-btn" onclick="closeAll()">✕ CLOSE</span>
+    <h2>LINKS</h2>
+    <p>
+        <a href="https://moekasuash.github.io/TRPG/" target="_blank" style="color: #fff;">TRPG TOP</a><br>
+        <a href="op.mp3" target="_blank" style="color: #fff;">なぜか存在するOP曲</a><br>
+        <a href="" style="color: #fff;">ログ（アフター公開）</a>
+    </p>
+</div>
+
+    <script>
+        function showContent(id) {
+            closeAll();
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeAll() {
+            const overlays = document.querySelectorAll('.content-overlay');
+            overlays.forEach(el => el.classList.remove('active'));
+        }
+    </script>
+
+</body>
+</html>
