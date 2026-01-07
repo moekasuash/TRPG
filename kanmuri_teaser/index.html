@@ -207,17 +207,28 @@
     </p>
 </div>
 
-    <script>
-        function showContent(id) {
-            closeAll();
-            document.getElementById(id).classList.add('active');
-        }
+<script>
+    function showContent(id) {
+        const target = document.getElementById(id);
+        
+        // すでに表示されている（activeクラスを持っている）かチェック
+        const isActive = target.classList.contains('active');
 
-        function closeAll() {
-            const overlays = document.querySelectorAll('.content-overlay');
-            overlays.forEach(el => el.classList.remove('active'));
-        }
-    </script>
+        // 一旦すべてを閉じる
+        closeAll();
 
+        // もしクリックしたものが「表示されていなかった」場合のみ、新しく表示する
+        // （表示されていた場合は、closeAllで閉じたままになるのでトグルになります）
+        if (!isActive) {
+            target.classList.add('active');
+        }
+    }
+
+    function closeAll() {
+        const overlays = document.querySelectorAll('.content-overlay');
+        overlays.forEach(el => el.classList.remove('active'));
+    }
+</script>
+	
 </body>
 </html>
